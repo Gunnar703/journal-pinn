@@ -34,9 +34,14 @@ def _get_chirp(t0, t1, amplitude, total_dimensions, force_dimension, device="cud
     load = torch.as_tensor(load, device=device) / load.max()
     time = torch.as_tensor(time, device=device)
 
+    # print("time:", time.shape, "\nload:", load.shape)
+
     def chirp_signal(t):
         f = torch.zeros((total_dimensions, 1 if not t.shape else len(t)), device=device)
-        f[force_dimension] = interp(t, time, load).squeeze() * amplitude
+        v = interp(t, time, load).squeeze() * amplitude
+        # print("f:", f.shape, "\nv:", v.shape)
+
+        f[force_dimension] = v
         return f
 
     return chirp_signal

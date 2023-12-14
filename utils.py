@@ -1,5 +1,6 @@
 import os
 import torch
+import numpy as np
 
 from torch import Tensor
 
@@ -20,13 +21,22 @@ def interp(x: Tensor, xp: Tensor, fp: Tensor) -> Tensor:
     Returns:
         the interpolated values, same size as `x`.
     """
-    m = (fp[1:] - fp[:-1]) / (xp[1:] - xp[:-1])
-    b = fp[:-1] - (m * xp[:-1])
+    # if len(x.shape) < 2:
+    #     x = x.reshape(-1, 1)
+    # if len(xp.shape) < 2:
+    #     xp = xp.reshape(-1, 1)
 
-    indicies = torch.sum(torch.ge(x[:, None], xp[None, :]), 1) - 1
-    indicies = torch.clamp(indicies, 0, len(m) - 1)
+    # m = (fp[1:] - fp[:-1]) / (xp[1:] - xp[:-1])
+    # b = fp[:-1] - (m * xp[:-1])
 
-    return m[indicies] * x + b[indicies]
+    # indicies = torch.sum(torch.ge(x[:, None], xp[None, :]), 1) - 1
+    # indicies = torch.clamp(indicies, 0, len(m) - 1)
+    # print("x", x, "\nxp:", xp)
+
+    # return m[indicies] * x + b[indicies]
+    return torch.from_numpy(
+        np.array(np.interp(x.cpu().numpy(), xp.cpu().numpy(), fp.cpu().numpy()))
+    )
 
 
 def make_folder(name):
