@@ -1,4 +1,5 @@
 import os
+from matplotlib import pyplot as plt
 import torch
 import numpy as np
 
@@ -49,3 +50,62 @@ def make_folder(name):
 
     os.makedirs(name)
     return name
+
+
+def plot_functions():
+    from forcing_functions import get_function
+    from model import latin_hypercube_1D
+
+    t0 = 0
+    t1 = 2.9
+    ntc = 290
+
+    sine = get_function(
+        name="sine",
+        t0=t0,
+        t1=t1,
+        amplitude=-1e3,
+        total_dimensions=1,
+        force_dimension=0,
+    )
+    chirp = get_function(
+        name="chirp",
+        t0=t0,
+        t1=t1,
+        amplitude=-1e3,
+        total_dimensions=1,
+        force_dimension=0,
+    )
+    gaussian = get_function(
+        name="gaussian",
+        t0=t0,
+        t1=t1,
+        amplitude=-1e3,
+        total_dimensions=1,
+        force_dimension=0,
+    )
+
+    t = torch.linspace(t0, t1, ntc)
+    sine_pts = sine(t).cpu().flatten()
+
+    fig = plt.figure(figsize=(6.5, 4))
+    plt.plot(t, sine_pts)
+    plt.xlabel("Time, $t$ [sec]")
+    plt.ylabel("Force, $f(t)$ [N]")
+    plt.savefig("outputs/sine.png")
+
+    chirp_pts = chirp(t).cpu().flatten()
+
+    fig = plt.figure(figsize=(6.5, 4))
+    plt.plot(t, chirp_pts)
+    plt.xlabel("Time, $t$ [sec]")
+    plt.ylabel("Force, $f(t)$ [N]")
+    plt.savefig("outputs/chirp.png")
+
+    gaussian_pts = gaussian(t).cpu().flatten()
+
+    fig = plt.figure(figsize=(6.5, 4))
+    plt.plot(t, gaussian_pts)
+    plt.xlabel("Time, $t$ [sec]")
+    plt.ylabel("Force, $f(t)$ [N]")
+    plt.savefig("outputs/gaussian.png")
