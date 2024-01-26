@@ -1,4 +1,0 @@
-Epoch,Collocation Loss,Physics Loss,Total Loss,Alpha,E,Percent Error (E)
-0,0.10414543747901917,10383773401088.0,0.20798316597938538,1e-14,"tensor(51923080., device='cuda:0', grad_fn=<MulBackward0>)","tensor([[25.0000]], device='cuda:0')"
-1000,0.006969358306378126,460384370688.0,0.011573201976716518,1e-14,"tensor(32768252., device='cuda:0', grad_fn=<MulBackward0>)","tensor([[52.6681]], device='cuda:0')"
-2000,0.00698094954714179,472843419648.0,0.011709383688867092,1e-14,"tensor(32776076., device='cuda:0', grad_fn=<MulBackward0>)","tensor([[52.6568]], device='cuda:0')"
