@@ -232,7 +232,9 @@ def run_experiment(
                             "outputs",
                             run_name,
                             forcing_function,
-                            "%d_nodes_given" % len(node_list),
+                            f"{len(node_list)}_nodes_given",
+                            f"{noise}%_noise",
+                            f"{init_error}%_init_error",
                         )
                     )
 
