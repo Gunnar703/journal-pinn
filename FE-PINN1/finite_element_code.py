@@ -2,9 +2,9 @@ from functools import lru_cache
 import torch
 
 
-def set_up_4_dof():
-    x = torch.as_tensor((0, 5), device="cuda")
-    y = torch.as_tensor((0, 5), device="cuda")
+def set_up_4_dof(device="cuda"):
+    x = torch.as_tensor((0, 5), device=device)
+    y = torch.as_tensor((0, 5), device=device)
     x, y = torch.meshgrid(x, y, indexing="xy")
 
     nodes_y, nodes_x = x.shape
@@ -18,9 +18,9 @@ def set_up_4_dof():
     ndim = len(free_indices)
     fdim = 3
 
-    E = torch.ones((elements_y, elements_x), device="cuda") * 6.923076923076923192e07
-    nu = torch.ones((elements_y, elements_x), device="cuda") * 0.3
-    rho = torch.ones((elements_y, elements_x), device="cuda") * 2e3
+    E = torch.ones((elements_y, elements_x), device=device) * 6.923076923076923192e07
+    nu = torch.ones((elements_y, elements_x), device=device) * 0.3
+    rho = torch.ones((elements_y, elements_x), device=device) * 2e3
     a0, a1 = rayleigh_damping_parameters()
     return x, y, E, nu, rho, a0, a1, fdim, free_indices, ndim, sens_dim
 
